@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Login extends HttpServlet {
+public class LoginBean extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		
 		req.setCharacterEncoding("EUC_KR");
 
 		res.setContentType("text/html;charset=EUC_KR");
@@ -21,24 +21,27 @@ public class Login extends HttpServlet {
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
 		
-		String fromDbId = null;
-		String fromDbPwd = null;
+		DbBean dbBean = new DbBean();
+		dbBean.setId(id);
+		dbBean.setPwd(pwd);
 		
+		boolean isLogin = dbBean.getUser();
 		
 		out.println("<html>");
 		out.println("<head></head>");
 		out.println("<body>");
+		
 		out.println("<h2>Login 화면</h2>");
 		
-		if(fromDbId != null && fromDbPwd != null && fromDbId.equals(id) && fromDbPwd.equals(pwd)) {
+		if(isLogin) {
 			out.println(id+"님 환영합니다.");
 		}else {
-			out.print("id,pwd를 확인하세요");
+			out.println("Login 실패 id,pwd를 확인하세요.");
 		}
 		
-		out.println("<p><p><a href='/edu/jw04/login.html'>뒤로</a>");
+		out.println("<p><p><a href='/edu/jw04/loginBean.html'>뒤로</a>");
 		out.println("</body>");
-		out.println("</html");
+		out.println("</html>");
 	}
 
 }

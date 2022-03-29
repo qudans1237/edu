@@ -9,34 +9,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Login extends HttpServlet {
+public class LoginBeanPool extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		
 		req.setCharacterEncoding("EUC_KR");
-
 		res.setContentType("text/html;charset=EUC_KR");
 		PrintWriter out = res.getWriter();
 		
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
 		
-		String fromDbId = null;
-		String fromDbPwd = null;
+		UserVO userVO = new UserVO();
+		userVO.setId(id);
+		userVO.setPasswd(pwd);
 		
+		UserPoolDao userPoolDao = new UserPoolDao();
+		userPoolDao.getUser(userVO);
 		
 		out.println("<html>");
 		out.println("<head></head>");
 		out.println("<body>");
 		out.println("<h2>Login 화면</h2>");
 		
-		if(fromDbId != null && fromDbPwd != null && fromDbId.equals(id) && fromDbPwd.equals(pwd)) {
+		if(userVO.isActive()) {
 			out.println(id+"님 환영합니다.");
 		}else {
 			out.print("id,pwd를 확인하세요");
 		}
 		
-		out.println("<p><p><a href='/edu/jw04/login.html'>뒤로</a>");
+		out.println("<p><p><a href='/edu/jw04/loginBeanPool.html'>뒤로</a>");
 		out.println("</body>");
 		out.println("</html");
 	}

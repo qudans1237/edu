@@ -1,0 +1,14 @@
+
+CREATE TABLE users(
+	no		NUMBER		PRIMARY KEY ,
+	id		VARCHAR2(10)	NOT NULL ,
+	pwd		VARCHAR2(10)	NOT NULL
+);
+
+INSERT INTO  users VALUES(1,'È«±æµ¿','1111');
+INSERT INTO  users VALUES(2,'È«±æ¼ø','2222');
+INSERT INTO  users VALUES(3,'ÀÌ¼ø½Å','3333');
+
+SELECT * FROM users;
+
+COMMIT;
